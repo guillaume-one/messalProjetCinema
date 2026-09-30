@@ -3,99 +3,142 @@
 <head>
     <meta charset="UTF-8">
     <title>Liste des séances</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
 </head>
-<body style="padding: 10px;">
-<h1>Salle 1</h1>
-<p><b>Séances du 21 octobre au 27 octobre</b></p>
+<body class="d-flex flex-column min-vh-100">
 
-<div class="container">
-    <div class="row">
-        <div class="col-4">
-            <div style="padding: 35px; margin-bottom: 10px; background-color: #3c43ff">
-                <a href="./film-leemiller.html">
-                    <img src="./Ressources/Images/affiche-leemiller.png" style="height: 250px;" class="img-fluid" alt="affiche-leemiller">
-                </a>
-            </div>
-            <div style="padding: 25px; margin-bottom: 10px; background-color: #dab9e3">
-                <p>
-                    mercredi 21 octobre
-                    <br>
-                    19h30 VOST
-                </p>
-            </div>
-            <div style="padding: 25px; margin-bottom: 10px; background-color: #239a9f">
-                <p>
-                    jeudi 22 octobre
-                    <br>
-                    22h00 VF
-                </p>
-            </div>
-            <div style="padding: 25px; margin-bottom: 10px; background-color: #dab9e3">
-                . . . .
-            </div>
-        </div>
+<header class="banniere-bg">
+    <img src="./Ressources/Images/banner.png" alt="Bannière cinéma du Castor" class="img-fluid">
+</header>
 
-        <div class="col-4">
-            <div style="padding: 35px; margin-bottom: 10px; background-color: #3c43ff">
-                <a href="./film-croquette.html">
-                    <img src="./Ressources/Images/affiche-croquette.jpg" style="height: 250px;" class="img-fluid" alt="affiche-croquette">
-                </a>
-            </div>
-            <div style="padding: 25px; margin-bottom: 10px; background-color: #dab9e3">
-                <p>
-                    mercredi 21 octobre
-                    <br>
-                    19h30 VOST
-                </p>
-            </div>
-            <div style="padding: 25px; margin-bottom: 10px; background-color: #239a9f"">
-                <p>
-                    jeudi 22 octobre
-                    <br>
-                    22h00 VF
-                </p>
-            </div>
-            <div style="padding: 25px; margin-bottom: 10px; background-color: #dab9e3">
-                . . . .
-            </div>
-        </div>
+<nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+    <div class="container-fluid">
+        <!-- Bouton hamburger (visible uniquement sur petit écran) -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </div>
 
-        <div class="col-4">
-            <div style="padding: 35px; margin-bottom: 10px; background-color: #3c43ff">
-                <a href="./film-smile.html">
-                    <img src="./Ressources/Images/affiche-smile.jpg" style="height: 250px;" class="img-fluid" alt="affiche-smile">
-                </a>
+    <!-- Partie repliable : contient les liens -->
+    <div class="collapse navbar-collapse" id="menu">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item dropdown">
+                <a class="nav-link" href="./index.html" role="button">Accueil</a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown">Films</a>
+                <ul class="dropdown-menu">
+                    <li><a class="dopdown-item" href="./film-croquette.html">Croquette</a></li>
+                    <li><a class="dopdown-item" href="./film-leemiller.html">Lee Miller</a></li>
+                    <li><a class="dopdown-item" href="./film-smile.html">Smile 2</a></li>
+                </ul>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link" href="./seances.html" role="button">Séances</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div id="main" class="container-fluid">
+
+    <h1>Salle 1</h1>
+    <p><b>Séances du 21 octobre au 27 octobre</b></p>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-4">
+                <div class="seance-img">
+                    <a href="./film-leemiller.html">
+                        <img src="./Ressources/Images/affiche-leemiller.png" class="img-fluid" alt="affiche-leemiller">
+                    </a>
+                </div>
+                <div class="seance1">
+                    <p>
+                        mercredi 21 octobre
+                        <br>
+                        19h30 VOST
+                    </p>
+                </div>
+                <div   class="seance2"">
+                    <p>
+                        jeudi 22 octobre
+                        <br>
+                        22h00 VF
+                    </p>
+                </div>
+                <div   class="seance1">
+                    . . . .
+                </div>
             </div>
-            <div style="padding: 25px; margin-bottom: 10px; background-color: #dab9e3">
-                <p>
-                    mercredi 21 octobre
-                    <br>
-                    19h30 VOST
-                </p>
+
+            <div class="col-4">
+                <div class="seance-img">
+                    <a href="./film-croquette.html">
+                        <img src="./Ressources/Images/affiche-croquette.jpg" class="img-fluid" alt="affiche-croquette">
+                    </a>
+                </div>
+                <div class="seance1">
+                    <p>
+                        mercredi 21 octobre
+                        <br>
+                        19h30 VOST
+                    </p>
+                </div>
+                <div   class="seance2"">
+                    <p>
+                        jeudi 22 octobre
+                        <br>
+                        22h00 VF
+                    </p>
+                </div>
+                <div class="seance1">
+                    . . . .
+                </div>
             </div>
-            <div style="padding: 25px; margin-bottom: 10px; background-color: #239a9f"">
-                <p>
-                    jeudi 22 octobre
-                    <br>
-                    22h00 VF
-                </p>
-            </div>
-            <div style="padding: 25px; margin-bottom: 10px; background-color: #dab9e3">
-                . . . .
+
+            <div class="col-4">
+                <div class="seance-img">
+                    <a href="./film-smile.html">
+                        <img src="./Ressources/Images/affiche-smile.jpg" class="img-fluid" alt="affiche-smile">
+                    </a>
+                </div>
+                <div class="seance1">
+                    <p>
+                        mercredi 21 octobre
+                        <br>
+                        19h30 VOST
+                    </p>
+                </div>
+                <div class="seance2">
+                    <p>
+                        jeudi 22 octobre
+                        <br>
+                        22h00 VF
+                    </p>
+                </div>
+                <div   class="seance1">
+                    . . . .
+                </div>
             </div>
         </div>
     </div>
+
+    <h1>Salle 2</h1>
+
+    <br>
+
+    <a href="./index.html" class="btn btn-primary">Revenir à l'accueil</a>
 </div>
 
-<h1>Salle 2</h1>
-
-<br>
-
-<a href="./index.html" class="btn btn-primary">Revenir à l'accueil</a>
-
 <br><br>
+
+<footer class="pied mt-auto">
+    BTS CIEL Simone de Beauvoir | Guillaume MESSAL &copy; 2026
+</footer>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"

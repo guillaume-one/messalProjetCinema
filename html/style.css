@@ -1,0 +1,48 @@
+nav {
+    margin-bottom: 15px;
+}
+
+.banniere-bg {
+    background-color: #151112;
+}
+
+.pied {
+    color: white;
+    background-color: #151112;
+    text-align: center;
+    padding: 10px;
+}
+
+#main {
+    padding: 0 15px 0 15px;
+}
+
+#main img {
+    max-height: 450px !important;
+    border-radius: 5%;
+}
+
+#menu {
+    padding: 0 15px 0 15px;
+}
+
+.seance1 {
+    padding: 10px;
+    margin-bottom: 20px;
+    background-color: #dab9e3;
+}
+
+.seance2 {
+    padding: 10px;
+    margin-bottom: 20px;
+    background-color: #239a9f
+}
+
+.seance-img {
+    padding: 5%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #3c43ff;
+    margin-bottom: 20px;
+}

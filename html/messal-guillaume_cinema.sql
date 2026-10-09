@@ -11,6 +11,10 @@ SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
 
+-- Accorde absolument tous les privilèges globaux à votre utilisateur (depuis n'importe quel conteneur)
+GRANT ALL PRIVILEGES ON *.* TO 'messal-guillaume'@'%' WITH GRANT OPTION;
+FLUSH PRIVILEGES;
+
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;

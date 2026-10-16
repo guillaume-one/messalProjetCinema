@@ -1,4 +1,8 @@
 /html/docker-compose.yaml
 /html/.env
 /html/.idea
+
 /flaskCine/.idea
+/flaskCine/.venv
+
+/flaskCine/config.env

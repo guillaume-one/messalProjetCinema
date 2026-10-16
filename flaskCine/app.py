@@ -50,12 +50,10 @@ def index():
     co = get_db_connection()
     cursor = co.cursor()
 
-    requete = "SELECT seances.ID, heure_date, id_film, id_salle, film.titre, salle.num, film.resume FROM seances JOIN film ON film.ID = seances.id_film JOIN salle ON seances.id_salle = salle.ID ORDER BY heure_date LIMIT 1;"
+    requete = "SELECT seances.ID, heure_date, id_film, id_salle, film.titre, salle.num, film.resume, film.affiche FROM seances JOIN film ON film.ID = seances.id_film JOIN salle ON seances.id_salle = salle.ID ORDER BY heure_date LIMIT 1;"
     cursor.execute(requete)
 
     prochaine_seance = cursor.fetchone()
-
-    print(prochaine_seance)
 
     return render_template('index.html', prochaine_seance=prochaine_seance)
 

@@ -50,12 +50,14 @@ def index():
     co = get_db_connection()
     cursor = co.cursor()
 
-    requete = "SELECT seances.ID, heure_date, id_film, id_salle, film.titre, salle.num, film.resume, film.affiche FROM seances JOIN film ON film.ID = seances.id_film JOIN salle ON seances.id_salle = salle.ID ORDER BY heure_date LIMIT 1;"
+    requete = "SELECT seances.ID, heure_date, id_film, id_salle, film.titre, salle.num, film.resume, film.affiche, film.interdit_moins_16_ans FROM seances JOIN film ON film.ID = seances.id_film JOIN salle ON seances.id_salle = salle.ID ORDER BY heure_date LIMIT 3;"
     cursor.execute(requete)
 
     prochaine_seance = cursor.fetchone()
 
-    return render_template('index.html', prochaine_seance=prochaine_seance)
+    prochaines_seances = cursor.fetchall()
+
+    return render_template('index.html', prochaine_seance=prochaine_seance, prochaines_seances=prochaines_seances)
 
 @app.route('/seances')
 def seances():

@@ -22,10 +22,8 @@ def home():
 
         # 2. Exécution de la requête SQL
         with connection.cursor() as cursor:
-            cursor.execute("SELECT seances.ID, heure_date, id_film, id_salle, film.titre, salle.num, film.resume FROM seances JOIN film ON film.ID = seances.id_film JOIN salle ON seances.id_salle = salle.ID ORDER BY heure_date LIMIT 1;")
+            cursor.execute("SELECT count(*) FROM film;")
             resultat = cursor.fetchone() # ou fetchall() pour obtenir tous les résultats
-
-            print(resultat)
 
         # 3. Affichage du résultat au format JSON
         return jsonify({
@@ -48,22 +46,32 @@ def home():
 
 @app.route('/')
 def index():
-    print()
-    return render_template('index.html')
+
+    co = get_db_connection()
+    cursor = co.cursor()
+
+    requete = "SELECT seances.ID, heure_date, id_film, id_salle, film.titre, salle.num, film.resume FROM seances JOIN film ON film.ID = seances.id_film JOIN salle ON seances.id_salle = salle.ID ORDER BY heure_date LIMIT 1;"
+    cursor.execute(requete)
+
+    prochaine_seance = cursor.fetchone()
+
+    print(prochaine_seance)
+
+    return render_template('index.html', prochaine_seance=prochaine_seance)
 
 @app.route('/seances')
 def seances():
     return render_template('seances.html')
 
-@app.route('/film-croquette.html')
+@app.route('/film-croquette')
 def film_croquette():
     return render_template('film-croquette.html')
 
-@app.route('/film-leemiller.html')
+@app.route('/film-leemiller')
 def film_leemiller():
     return render_template('film-leemiller.html')
 
-@app.route('/film-smile.html')
+@app.route('/film-smile')
 def film_smile():
     return render_template('film-smile.html')
 

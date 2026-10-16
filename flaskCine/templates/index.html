@@ -54,14 +54,14 @@
                 <img src="{{ url_for('static', filename='Ressources/Images/affiche-leemiller.png') }}" class="img-fluid" alt="affiche-leemiller">
             </div>
             <div class="col-sm-8 border border-dark">
-                <h3><i>Lee Miller</i></h3>
+                <h3><i>{{ prochaine_seance.titre}}</i></h3>
                 <br><br>
 
-                <p>Séance à <b>14h30 / Salle 1</b></p>
+                <p>Séance à <b>{{ prochaine_seance.heure_date }} / Salle {{ prochaine_seance.num }}</b></p>
                 <br>
                 <h4>Résumé du film</h4>
                 <br>
-                <p>Lee Miller est un film britannique réalisé par Ellen Kuras en 2023. Il s'agit d'un film biographique sur la photographe Elizabeth "Lee" Miller.</p>
+                <p>{{ prochaine_seance.resume }}</p>
             </div>
         </div>
     </div>

@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, render_template
+from flask import Flask, jsonify, render_template, redirect, url_for
 import pymysql
 import pymysql.cursors
 from config import Config # Importe la configuration
@@ -53,11 +53,9 @@ def index():
     requete = "SELECT seances.ID, heure_date, id_film, id_salle, film.titre, salle.num, film.resume, film.affiche, film.interdit_moins_16_ans FROM seances JOIN film ON film.ID = seances.id_film JOIN salle ON seances.id_salle = salle.ID ORDER BY heure_date LIMIT 3;"
     cursor.execute(requete)
 
-    prochaine_seance = cursor.fetchone()
-
     prochaines_seances = cursor.fetchall()
 
-    return render_template('index.html', prochaine_seance=prochaine_seance, prochaines_seances=prochaines_seances)
+    return render_template('index.html',prochaines_seances=prochaines_seances)
 
 @app.route('/seances')
 def seances():
@@ -74,6 +72,10 @@ def film_leemiller():
 @app.route('/film-smile')
 def film_smile():
     return render_template('film-smile.html')
+
+@app.route('/film/')
+def film_sans_variable():
+    return redirect(url_for('index'))
 
 if __name__ == '__main__':
     app.run(debug=True)

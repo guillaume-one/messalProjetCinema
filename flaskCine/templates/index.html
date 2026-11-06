@@ -51,17 +51,17 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-4">
-                <img src="{{ url_for('static', filename='Ressources/Images/' ~ prochaine_seance.affiche) }}" class="img-fluid" alt="affiche-leemiller">
+                <img src="{{ url_for('static', filename='Ressources/Images/' ~ prochaines_seances[0].affiche) }}" class="img-fluid" alt="affiche-leemiller">
             </div>
             <div class="col-sm-8 border border-dark">
-                <h3><i>{{ prochaine_seance.titre}}</i></h3>
+                <h3><i>{{ prochaines_seances[0].titre}}</i></h3>
                 <br><br>
 
-                <p>Séance à <b>{{ prochaine_seance.heure_date }} / Salle {{ prochaine_seance.num }}</b></p>
+                <p>Séance à <b>{{ prochaines_seances[0].heure_date }} / Salle {{ prochaines_seances[0].num }}</b></p>
                 <br>
                 <h4>Résumé du film</h4>
                 <br>
-                <p>{{ prochaine_seance.resume }}</p>
+                <p>{{ prochaines_seances[0].resume }}</p>
             </div>
         </div>
     </div>
@@ -77,26 +77,26 @@
             </div>
             <div class="col-sm-5 border border-dark">
                 <div>
-                    <h3 class="film">Croquette</h3>
+                    <h3 class="film">{{ prochaines_seances[1].titre }}</h3>
                     <br>
-                    <h3>Séance à 16h00 / salle 2</h3>
+                    <h3>Séance à {{ prochaines_seances[1].heure_date }} / salle {{ prochaines_seances[1].num }}</h3>
                 </div>
-                {{% if prochaines_seances[1].interdit_moins_16_ans %}}
+                {% if prochaines_seances[1].interdit_moins_16_ans %}
                 <img src="{{ url_for('static', filename='Ressources/Images/interdiction-moins-de-16-ans.png') }}" style="height: 75px;" class="img-fluid" alt="badge-moins-16-ans">
-                {{% endif %}}
+                {% endif %}
             </div>
             <div class="col-sm-1">
-                <img src="{{ url_for('static', filename='Ressources/Images/affiche-smile.jpg') }}" class="img-fluid" alt="affiche-smile">
+                <img src="{{ url_for('static', filename='Ressources/Images/' ~ prochaines_seances[2].affiche) }}" class="img-fluid" alt="affiche-smile">
             </div>
             <div class="col-sm-5 border border-dark d-flex justify-content-between align-items-center">
                 <div>
-                    <h3 class="film">Smile</h3>
+                    <h3 class="film">{{ prochaines_seances[2].titre }}</h3>
                     <br>
-                    <h3>Séance à 21h00 / salle 3</h3>
+                    <h3>Séance à {{ prochaines_seances[2].heure_date }} / salle {{ prochaines_seances[2].num }}</h3>
                 </div>
-                {{% if prochaines_seances[2].interdit_moins_16_ans %}}
+                {% if prochaines_seances[2].interdit_moins_16_ans %}
                 <img src="{{ url_for('static', filename='Ressources/Images/interdiction-moins-de-16-ans.png') }}" style="height: 75px;" class="img-fluid" alt="badge-moins-16-ans">
-                {{% endif %}}
+                {% endif %}
             </div>
         </div>
     </div>

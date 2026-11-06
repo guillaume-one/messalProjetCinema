@@ -55,14 +55,28 @@ def index():
 
     prochaines_seances = cursor.fetchall()
 
+    requete_film = "SELECT * FROM film;"
+    cursor.execute(requete_film)
+    films = cursor.fetchall()
+
     cursor.close()
     co.close()
 
-    return render_template('index.html',prochaines_seances=prochaines_seances)
+    return render_template('index.html',prochaines_seances=prochaines_seances, films=films)
 
 @app.route('/seances')
 def seances():
-    return render_template('seances.html')
+    co = get_db_connection()
+    cursor = co.cursor()
+
+    requete_film = "SELECT * FROM film;"
+    cursor.execute(requete_film)
+    films = cursor.fetchall()
+
+    cursor.close()
+    co.close()
+
+    return render_template('seances.html', films=films)
 
 @app.route('/film/')
 def film_sans_variable():
@@ -93,11 +107,20 @@ def film(id_film):
 
     film_info = cursor.fetchone()
 
+    requete_film = "SELECT * FROM film;"
+    cursor.execute(requete_film)
+    films = cursor.fetchall()
+
+    requete_seances = "SELECT * FROM seances JOIN salle ON seances.id_salle=salle.id JOIN film ON seances.id_film=film.id WHERE seances.id_film = %s;"
+    cursor.execute(requete_seances, id_film)
+
+    seances = cursor.fetchall()
+
     co.close()
     cursor.close()
 
     if film_info:
-        return render_template('film.html', film_info=film_info)
+        return render_template('film.html', film_info=film_info, films=films, seances=seances)
     else:
         return redirect(url_for('films'))
 

@@ -24,14 +24,20 @@
     </div>
 
     <!-- Partie repliable : contient les liens -->
-    <div class="collapse navbar-collapse" id="menu"
     <div class="collapse navbar-collapse" id="menu">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item dropdown">
                 <a class="nav-link" href="/" role="button">Accueil</a>
             </li>
             <li class="nav-item dropdown">
-                <a class="nav-link" href="/films" role="button">Films</a>
+                 <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown">Films</a>
+                <ul class="dropdown-menu dropdown-menu-end">
+                    <li><a class="dropdown-item" href="/films">Tous les films</a></li>
+                    <div class="dropdown-divider"></div>
+                    {% for film in films %}
+                        <li><a class="dropdown-item" href="/film/{{ film.id }}">{{ film.titre }}</a></li>
+                    {% endfor %}
+                </ul>
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link" href="/seances" role="button">Séances</a>
@@ -41,12 +47,17 @@
 </nav>
 
 <div id="main" class="container-fluid">
-
-    {% for film in films %}
-    <a href="/film/{{ film.id }}">
-        <img src="{{ url_for('static', filename="Ressources/Images/" ~ film.affiche) }}">
-    </a>
-    {% endfor %}
+    <div class="container">
+        <div class="row">
+            {% for film in films %}
+                <div class="col-4">
+                    <a href="/film/{{ film.id }}">
+                        <img src="{{ url_for('static', filename="Ressources/Images/" ~ film.affiche) }}">
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
 
     <br><br>
 

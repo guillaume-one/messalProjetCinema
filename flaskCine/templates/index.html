@@ -29,7 +29,14 @@
                 <a class="nav-link" href="/" role="button">Accueil</a>
             </li>
             <li class="nav-item dropdown">
-                <a class="nav-link" href="/films" role="button">Films</a>
+                 <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown">Films</a>
+                <ul class="dropdown-menu dropdown-menu-end">
+                    <li><a class="dropdown-item" href="/films">Tous les films</a></li>
+                    <div class="dropdown-divider"></div>
+                    {% for film in films %}
+                        <li><a class="dropdown-item" href="/film/{{ film.id }}">{{ film.titre }}</a></li>
+                    {% endfor %}
+                </ul>
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link" href="/seances" role="button">Séances</a>

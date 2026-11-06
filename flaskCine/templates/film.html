@@ -24,14 +24,20 @@
     </div>
 
     <!-- Partie repliable : contient les liens -->
-    <div class="collapse navbar-collapse" id="menu"
     <div class="collapse navbar-collapse" id="menu">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item dropdown">
                 <a class="nav-link" href="/" role="button">Accueil</a>
             </li>
             <li class="nav-item dropdown">
-                <a class="nav-link" href="/films" role="button">Films</a>
+                 <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown">Films</a>
+                <ul class="dropdown-menu dropdown-menu-end">
+                    <li><a class="dropdown-item" href="/films">Tous les films</a></li>
+                    <div class="dropdown-divider"></div>
+                    {% for film in films %}
+                        <li><a class="dropdown-item" href="/film/{{ film.id }}">{{ film.titre }}</a></li>
+                    {% endfor %}
+                </ul>
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link" href="/seances" role="button">Séances</a>
@@ -47,18 +53,26 @@
     <div class="container">
         <div class="row">
             <div class="col-9">
+                <p><h2>Durée du film</h2> {{ film_info.duree }} min
+                {% if film_info.interdit_moins_16_ans %}
+                    <img src="{{ url_for('static', filename="Ressources/Images/interdiction-moins-de-16-ans.png") }}" style="height: 75px;">
+                {% endif %}
+                </p>
                 <h2>Résumé</h2>
                 <p>{{ film_info.resume }}</p>
 
                 <br>
                 <br>
                 <h2>Séances</h2>
-                <p>Liste à puces avec les séances (horaires, salles, version, interdiction)</p>
                 <ul>
-                    <li>horaire</li>
-                    <li>salle</li>
-                    <li>version</li>
-                    <li>interdiction</li>
+                    {% for seance in seances %}
+                        <li>Séance du {{ seance.heure_date }}
+                            <ul>
+                                <li>Salle {{ seance.num }}</li>
+                                <li>Langue : {{ seance.version_langue }}</li>
+                            </ul>
+                        </li>
+                    {% endfor %}
                 </ul>
             </div>
             <div class="col-3">

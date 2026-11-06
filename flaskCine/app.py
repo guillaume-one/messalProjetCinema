@@ -55,27 +55,51 @@ def index():
 
     prochaines_seances = cursor.fetchall()
 
+    cursor.close()
+    co.close()
+
     return render_template('index.html',prochaines_seances=prochaines_seances)
 
 @app.route('/seances')
 def seances():
     return render_template('seances.html')
 
-@app.route('/film-croquette')
-def film_croquette():
-    return render_template('film-croquette.html')
-
-@app.route('/film-leemiller')
-def film_leemiller():
-    return render_template('film-leemiller.html')
-
-@app.route('/film-smile')
-def film_smile():
-    return render_template('film-smile.html')
-
 @app.route('/film/')
 def film_sans_variable():
-    return redirect(url_for('index'))
+    return redirect(url_for('films'))
+
+@app.route('/films')
+def films():
+    co = get_db_connection()
+    cursor = co.cursor()
+
+    requete = "SELECT * FROM film;"
+    cursor.execute(requete)
+
+    films = cursor.fetchall()
+
+    cursor.close()
+    co.close()
+
+    return render_template('films.html', films=films)
+
+@app.route('/film/<id_film>')
+def film(id_film):
+    co = get_db_connection()
+    cursor = co.cursor()
+
+    requete = "SELECT * FROM film WHERE ID = %s"
+    cursor.execute(requete, id_film)
+
+    film_info = cursor.fetchone()
+
+    co.close()
+    cursor.close()
+
+    if film_info:
+        return render_template('film.html', film_info=film_info)
+    else:
+        return redirect(url_for('films'))
 
 if __name__ == '__main__':
     app.run(debug=True)

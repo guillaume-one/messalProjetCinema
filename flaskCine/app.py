@@ -70,14 +70,16 @@ def seances():
     co = get_db_connection()
     cursor = co.cursor()
 
-    requete_film = "SELECT * FROM seances JOIN salle ON seances.id_salle=salle.id JOIN film ON seances.id_film=film.id;"
+    requete_film = "SELECT * FROM seances JOIN salle ON seances.id_salle=salle.id JOIN film ON seances.id_film=film.id ORDER BY film.titre ASC;"
     cursor.execute(requete_film)
     info_seances_films = cursor.fetchall()
+
+    print(info_seances_films)
 
     cursor.close()
     co.close()
 
-    return render_template('seances.html', films=films)
+    return render_template('seances.html', info_seances_films=info_seances_films)
 
 @app.route('/seance/<num_salle>')
 def seance(num_salle):
@@ -111,7 +113,6 @@ def seance_json(num_salle):
     co.close()
 
     return seances
-
 
 @app.route('/film/')
 def film_sans_variable():

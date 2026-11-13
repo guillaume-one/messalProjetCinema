@@ -49,31 +49,22 @@
 
     <div class="container">
         <div class="row">
-
-            <div class="col-4">
-                <div class="seance-img">
-                    <a href="/film-leemiller">
-                        <img src="{{ url_for('static', filename='Ressources/Images/affiche-leemiller.png') }}" class="img-fluid" alt="affiche-leemiller">
-                    </a>
+            {% for film in info_seances_films %}
+                <div class="col-4">
+                    <div class="seance-img">
+                        <a href="/film/{{ film.id_film }}">
+                            <img src="{{ url_for('static', filename='Ressources/Images/' ~ film.affiche) }}" class="img-fluid" alt="affiche">
+                        </a>
+                    </div>
+                    <div class="seance1">
+                        <p>Salle {{ film.id_salle }}</p>
+                        <p>{{ film.heure_date }}</p>
+                        <p>{{ film.version_langue }}</p>
+                    </div>
                 </div>
-                <div class="seance1">
-                    <p>
-                        mercredi 21 octobre
-                        <br>
-                        19h30 VOST
-                    </p>
-                </div>
-                <div   class="seance2"">
-                    <p>
-                        jeudi 22 octobre
-                        <br>
-                        22h00 VF
-                    </p>
-                </div>
-                <div   class="seance1">
-                    . . . .
-                </div>
-            </div>
+            {% endfor %}
+        </div>
+    </div>
     <br>
 
     <a href="/" class="btn btn-primary">Revenir à l'accueil</a>

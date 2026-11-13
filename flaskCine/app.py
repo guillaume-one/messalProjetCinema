@@ -2,6 +2,7 @@ from flask import Flask, jsonify, render_template, redirect, url_for
 import pymysql
 import pymysql.cursors
 from config import Config # Importe la configuration
+import json
 app = Flask(__name__)
 def get_db_connection():
     """Crée la connexion à MariaDB avec les identifiants de config.py."""
@@ -69,14 +70,48 @@ def seances():
     co = get_db_connection()
     cursor = co.cursor()
 
-    requete_film = "SELECT * FROM film;"
+    requete_film = "SELECT * FROM seances JOIN salle ON seances.id_salle=salle.id JOIN film ON seances.id_film=film.id;"
     cursor.execute(requete_film)
-    films = cursor.fetchall()
+    info_seances_films = cursor.fetchall()
 
     cursor.close()
     co.close()
 
     return render_template('seances.html', films=films)
+
+@app.route('/seance/<num_salle>')
+def seance(num_salle):
+    co = get_db_connection()
+    cursor = co.cursor()
+
+    requete_seance = """SELECT film.titre, seances.heure_date, seances.version_langue, film.interdit_moins_16_ans FROM film
+                      JOIN seances ON film.id = seances.id_film JOIN salle ON seances.id_salle = salle.ID 
+                      WHERE salle.num = %s and seances.heure_date > NOW() ORDER BY seances.heure_date ASC;"""
+
+    cursor.execute(requete_seance, num_salle)
+    seances = cursor.fetchall()
+    print(seances)
+    cursor.close()
+    co.close()
+
+    return render_template('seance.html', seances=seances, num_salle=num_salle)
+
+@app.route('/getseances/<num_salle>')
+def seance_json(num_salle):
+    co = get_db_connection()
+    cursor = co.cursor()
+    requete_seance = """SELECT film.titre, seances.heure_date, seances.version_langue, film.interdit_moins_16_ans 
+                        FROM film JOIN seances ON film.id = seances.id_film JOIN salle ON seances.id_salle = salle.ID
+                        WHERE salle.num = %s and seances.heure_date > NOW() ORDER BY seances.heure_date ASC;"""
+
+    cursor.execute(requete_seance, num_salle)
+    seances = cursor.fetchall()
+    print(seances)
+    cursor.close()
+    co.close()
+
+    return seances
+
 
 @app.route('/film/')
 def film_sans_variable():

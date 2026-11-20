@@ -70,7 +70,7 @@ def seances():
     co = get_db_connection()
     cursor = co.cursor()
 
-    requete_film = "SELECT * FROM seances JOIN salle ON seances.id_salle=salle.id JOIN film ON seances.id_film=film.id ORDER BY film.titre ASC;"
+    requete_film = "SELECT * FROM seances JOIN salle ON seances.id_salle=salle.id JOIN film ON seances.id_film=film.id ORDER BY seances.heure_date ASC;"
     cursor.execute(requete_film)
     info_seances_films = cursor.fetchall()
 

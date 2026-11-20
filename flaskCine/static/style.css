@@ -26,25 +26,14 @@ nav {
     padding: 0 15px 0 15px;
 }
 
-.seance1 {
-    padding: 10px;
-    margin-bottom: 20px;
-    background-color: #dab9e3;
-}
-
-.seance2 {
-    padding: 10px;
-    margin-bottom: 20px;
-    background-color: #239a9f;
-}
-
-.seance-img {
+.seance {
     padding: 5%;
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #3c43ff;
+    background-color: #90baf1;
     margin-bottom: 20px;
+    border-radius: 5%;
 }
 
 a {

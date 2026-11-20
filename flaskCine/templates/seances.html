@@ -51,16 +51,18 @@
         <div class="row">
             {% for film in info_seances_films %}
                 <div class="col-4">
-                    <div class="seance-img">
+                    <div class="seance">
                         <a href="/film/{{ film.id_film }}">
                             <img src="{{ url_for('static', filename='Ressources/Images/' ~ film.affiche) }}" class="img-fluid" alt="affiche">
                         </a>
+
+                        <div style="padding: 2%;">
+                            <p>Salle {{ film.id_salle }}</p>
+                            <p>{{ film.heure_date }}</p>
+                            <p>{{ film.version_langue }}</p>
+                        </div>
                     </div>
-                    <div class="seance1">
-                        <p>Salle {{ film.id_salle }}</p>
-                        <p>{{ film.heure_date }}</p>
-                        <p>{{ film.version_langue }}</p>
-                    </div>
+                
                 </div>
             {% endfor %}
         </div>

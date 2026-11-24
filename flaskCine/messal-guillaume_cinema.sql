@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: mysql-messal-guillaume.alwaysdata.net
--- Generation Time: Nov 06, 2026 at 08:48 AM
+-- Generation Time: Nov 24, 2026 at 08:32 AM
 -- Server version: 10.11.18-MariaDB
--- PHP Version: 8.4.27
+-- PHP Version: 8.4.28
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -74,10 +74,10 @@ INSERT INTO `capteur` (`ID`, `Nom`, `ID_Salle`) VALUES
 --
 
 CREATE TABLE `film` (
-  `ID` int(11) UNSIGNED NOT NULL,
-  `titre` varchar(20) NOT NULL,
+  `id` int(11) UNSIGNED NOT NULL,
+  `titre` varchar(100) NOT NULL,
   `resume` text NOT NULL,
-  `duree` float NOT NULL,
+  `duree` int(11) NOT NULL,
   `interdit_moins_16_ans` tinyint(1) NOT NULL,
   `langue` varchar(20) NOT NULL,
   `affiche` varchar(100) NOT NULL
@@ -87,10 +87,11 @@ CREATE TABLE `film` (
 -- Dumping data for table `film`
 --
 
-INSERT INTO `film` (`ID`, `titre`, `resume`, `duree`, `interdit_moins_16_ans`, `langue`, `affiche`) VALUES
+INSERT INTO `film` (`id`, `titre`, `resume`, `duree`, `interdit_moins_16_ans`, `langue`, `affiche`) VALUES
 (1, 'Smile 2', 'À l’aube d’une nouvelle tournée mondiale, la star de la pop Skye Riley se met à vivre des événements aussi terrifiants qu’inexplicables. Submergée par la pression de la célébrité et devant un quotidien qui bascule de plus en plus dans l’horreur, Skye est forcée de se confronter à son passé obscur pour tenter de reprendre le contrôle de sa vie avant qu’il ne soit trop tard.', 132, 1, 'anglais', 'affiche-smile.jpg'),
-(2, 'Croquette le chat me', 'C’est bien connu, les chats ont plusieurs vies ! Croquette vient de gâcher celle de trop et il ferait tout pour retrouver Rose, sa maîtresse adorée. On lui accorde une dernière chance, cependant une règle a changé : Croquette peut revenir, mais à un détail près... Désormais transformé en cheval, chien, perroquet ou poisson, l’aventure ne fait que commencer !', 87, 0, 'français', 'affiche-croquette.jpg'),
-(3, 'Lee Miller', 'L’incroyable vie de LEE MILLER, ex-modèle pour Vogue et muse de Man Ray devenue l’une des premières femmes photographes de guerre. Partie sur le front et prête à tout pour témoigner des horreurs de la Seconde Guerre, elle a, par son courage et son refus des conventions, changé la façon de voir le monde.', 117, 0, 'anglais', 'affiche-leemiller.png');
+(2, 'Croquette le chat merveilleux', 'C’est bien connu, les chats ont plusieurs vies ! Croquette vient de gâcher celle de trop et il ferait tout pour retrouver Rose, sa maîtresse adorée. On lui accorde une dernière chance, cependant une règle a changé : Croquette peut revenir, mais à un détail près... Désormais transformé en cheval, chien, perroquet ou poisson, l’aventure ne fait que commencer !', 87, 0, 'français', 'affiche-croquette.jpg'),
+(3, 'Lee Miller', 'L’incroyable vie de LEE MILLER, ex-modèle pour Vogue et muse de Man Ray devenue l’une des premières femmes photographes de guerre. Partie sur le front et prête à tout pour témoigner des horreurs de la Seconde Guerre, elle a, par son courage et son refus des conventions, changé la façon de voir le monde.', 117, 0, 'anglais', 'affiche-leemiller.png'),
+(4, 'Star Wars : The Mandalorian and Grogu', 'La chute du maléfique Empire Galactique a précipité la dispersion des seigneurs de guerre impériaux à travers la galaxie. Pour protéger tout ce pour quoi la Rébellion s\'est battue, la jeune Nouvelle République décide de faire appel au légendaire chasseur de primes mandalorien Din Djarin et son jeune apprenti Grogu.', 132, 0, 'VF', 'affiche-mandalorian.jpg');
 
 -- --------------------------------------------------------
 
@@ -205,12 +206,12 @@ CREATE TABLE `seances` (
 --
 
 INSERT INTO `seances` (`ID`, `heure_date`, `id_salle`, `id_film`, `version_langue`) VALUES
-(1, '2026-10-31 13:00:00', 1, 3, 'VF'),
-(2, '2026-10-17 17:00:00', 3, 1, 'VO'),
-(3, '2026-10-17 10:00:00', 2, 3, 'VF'),
-(4, '2026-10-26 16:00:00', 1, 2, 'VF'),
-(5, '2026-10-18 16:00:00', 2, 3, 'VO'),
-(6, '2026-10-20 10:00:00', 3, 1, 'VF');
+(1, '2026-11-15 13:00:00', 1, 3, 'VF'),
+(2, '2026-11-16 22:30:00', 3, 1, 'VO'),
+(3, '2026-11-14 13:00:00', 2, 4, 'VF'),
+(4, '2026-11-16 10:30:00', 1, 2, 'VF'),
+(5, '2026-11-16 19:30:00', 2, 3, 'VO'),
+(6, '2026-11-15 20:00:00', 3, 1, 'VF');
 
 --
 -- Indexes for dumped tables
@@ -234,7 +235,7 @@ ALTER TABLE `capteur`
 -- Indexes for table `film`
 --
 ALTER TABLE `film`
-  ADD PRIMARY KEY (`ID`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `mesures`
@@ -277,7 +278,7 @@ ALTER TABLE `capteur`
 -- AUTO_INCREMENT for table `film`
 --
 ALTER TABLE `film`
-  MODIFY `ID` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `mesures`
@@ -323,7 +324,7 @@ ALTER TABLE `mesures`
 -- Constraints for table `seances`
 --
 ALTER TABLE `seances`
-  ADD CONSTRAINT `seances_ibfk_1` FOREIGN KEY (`id_film`) REFERENCES `film` (`ID`),
+  ADD CONSTRAINT `seances_ibfk_1` FOREIGN KEY (`id_film`) REFERENCES `film` (`id`),
   ADD CONSTRAINT `seances_ibfk_2` FOREIGN KEY (`id_salle`) REFERENCES `salle` (`ID`);
 COMMIT;
 

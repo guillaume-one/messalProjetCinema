@@ -160,5 +160,9 @@ def film(id_film):
     else:
         return redirect(url_for('films'))
 
+from update_date import mettre_a_jour_seances
+
+mettre_a_jour_seances()
+
 if __name__ == '__main__':
     app.run(debug=True)

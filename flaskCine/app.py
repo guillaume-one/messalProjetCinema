@@ -112,7 +112,7 @@ def seance_json(num_salle):
     cursor.close()
     co.close()
 
-    return seances
+    return jsonify(seances)
 
 @app.route('/film/')
 def film_sans_variable():

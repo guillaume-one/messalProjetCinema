@@ -74,12 +74,16 @@ def seances():
     cursor.execute(requete_film)
     info_seances_films = cursor.fetchall()
 
+    requete_film = "SELECT * FROM film;"
+    cursor.execute(requete_film)
+    films = cursor.fetchall()
+
     print(info_seances_films)
 
     cursor.close()
     co.close()
 
-    return render_template('seances.html', info_seances_films=info_seances_films)
+    return render_template('seances.html', info_seances_films=info_seances_films, films=films)
 
 @app.route('/seance/<num_salle>')
 def seance(num_salle):
@@ -92,11 +96,16 @@ def seance(num_salle):
 
     cursor.execute(requete_seance, num_salle)
     seances = cursor.fetchall()
+
+    requete_film = "SELECT * FROM film;"
+    cursor.execute(requete_film)
+    films = cursor.fetchall()
+
     print(seances)
     cursor.close()
     co.close()
 
-    return render_template('seance.html', seances=seances, num_salle=num_salle)
+    return render_template('seance.html', seances=seances, num_salle=num_salle, films=films)
 
 @app.route('/getseances/<num_salle>')
 def seance_json(num_salle):

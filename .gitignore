@@ -4,5 +4,6 @@
 
 /flaskCine/.idea
 /flaskCine/.venv
+/flaskCine/__pycache__
 
 /flaskCine/config.env

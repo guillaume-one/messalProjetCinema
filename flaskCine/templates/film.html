@@ -1,99 +1,46 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <title>Film | {{ film_info.titre }}</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+{% extends "base.html" %}
+{% block titre %}
+    Film | {{ film_info.titre }}
+{% endblock %}
 
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-</head>
-<body class="d-flex flex-column min-vh-100">
+{% block contenu %}
+    <div id="main" class="container-fluid">
 
-<header class="banniere-bg">
-    <img src="{{ url_for('static', filename='Ressources/Images/banner.png') }}" alt="Bannière cinéma du Castor" class="img-fluid">
-</header>
+        <h1>{{ film_info.titre }}</h1>
 
-<nav class="navbar navbar-expand-sm navbar-dark bg-dark">
-    <div class="container-fluid">
-        <!-- Bouton hamburger (visible uniquement sur petit écran) -->
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-    </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-9">
+                    <p><h2>Durée du film</h2> {{ film_info.duree }} min
+                    {% if film_info.interdit_moins_16_ans %}
+                        <img src="{{ url_for('static', filename="Ressources/Images/interdiction-moins-de-16-ans.png") }}" style="height: 75px;">
+                    {% endif %}
+                    </p>
+                    <h2>Résumé</h2>
+                    <p>{{ film_info.resume }}</p>
 
-    <!-- Partie repliable : contient les liens -->
-    <div class="collapse navbar-collapse" id="menu">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item dropdown">
-                <a class="nav-link" href="/" role="button">Accueil</a>
-            </li>
-            <li class="nav-item dropdown">
-                 <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown">Films</a>
-                <ul class="dropdown-menu dropdown-menu-end">
-                    <li><a class="dropdown-item" href="/films">Tous les films</a></li>
-                    <div class="dropdown-divider"></div>
-                    {% for film in films %}
-                        <li><a class="dropdown-item" href="/film/{{ film.id }}">{{ film.titre }}</a></li>
-                    {% endfor %}
-                </ul>
-            </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link" href="/seances" role="button">Séances</a>
-            </li>
-        </ul>
-    </div>
-</nav>
-
-<div id="main" class="container-fluid">
-
-    <h1>{{ film_info.titre }}</h1>
-
-    <div class="container">
-        <div class="row">
-            <div class="col-9">
-                <p><h2>Durée du film</h2> {{ film_info.duree }} min
-                {% if film_info.interdit_moins_16_ans %}
-                    <img src="{{ url_for('static', filename="Ressources/Images/interdiction-moins-de-16-ans.png") }}" style="height: 75px;">
-                {% endif %}
-                </p>
-                <h2>Résumé</h2>
-                <p>{{ film_info.resume }}</p>
-
-                <br>
-                <br>
-                <h2>Séances</h2>
-                <ul>
-                    {% for seance in seances %}
-                        <li>Séance du {{ seance.heure_date }}
-                            <ul>
-                                <li>Salle {{ seance.num }}</li>
-                                <li>Langue : {{ seance.version_langue }}</li>
-                            </ul>
-                        </li>
-                    {% endfor %}
-                </ul>
-            </div>
-            <div class="col-3">
-                <img src="{{ url_for('static', filename='Ressources/Images/' ~ film_info.affiche) }}" class="img-fluid" alt="Affiche Smile">
+                    <br>
+                    <br>
+                    <h2>Séances</h2>
+                    <ul>
+                        {% for seance in seances %}
+                            <li>Séance du {{ seance.heure_date }}
+                                <ul>
+                                    <li>Salle {{ seance.num }}</li>
+                                    <li>Langue : {{ seance.version_langue }}</li>
+                                </ul>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="col-3">
+                    <img src="{{ url_for('static', filename='Ressources/Images/' ~ film_info.affiche) }}" class="img-fluid" alt="Affiche Smile">
+                </div>
             </div>
         </div>
+
+        <br><br>
+
+        <a href="/" class="btn btn-primary">Revenir à l'accueil</a>
     </div>
-
-    <br><br>
-
-    <a href="/" class="btn btn-primary">Revenir à l'accueil</a>
-</div>
-
-<br><br>
-
-<footer class="pied mt-auto">
-    BTS CIEL 2 | Lycée Simone de Beauvoir | Guillaume MESSAL &copy; 2026
-</footer>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
-        crossorigin="anonymous"></script>
-</body>
-</html>
+{% endblock %}

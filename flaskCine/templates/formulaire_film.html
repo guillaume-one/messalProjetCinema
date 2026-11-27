@@ -1,0 +1,70 @@
+{% extends "base_admin.html" %}
+
+{% block titre %}
+    Formulaire
+{% endblock %}
+
+{% block contenu %}
+    <div class="container">
+        <div class="row justify-content-center">
+        <div class="col-12 col-md-8 col-lg-6">
+            <div class="card border-0 shadow-sm rounded-4">
+            <div class="card-body p-4 p-md-5">
+                
+                <div class="mb-4">
+                <h1 class="h3 fw-bold mb-1">Ajouter un film</h1>
+                <p class="text-body-secondary small mb-0">Renseignez les informations de la fiche du film.</p>
+                </div>
+
+                <form action="/ajouter_film" method="post" enctype="multipart/form-data">
+                    <div class="mb-3">
+                        <label for="titre" class="form-label fw-medium">Titre du film</label>
+                        <textarea class="form-control" id="titre" name="titre" rows="1" placeholder="Star Wars" required></textarea>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="langue" class="form-label fw-medium">Langue</label>
+                        <select class="form-select" id="langue" name="langue" required>
+                            <option value="francais">Français</option>
+                            <option value="anglais">Anglais</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="duree" class="form-label fw-medium">Durée du film</label>
+                        <div class="input-group">
+                            <input type="number" class="form-control" id="duree" name="duree" min="1" placeholder="120" required />
+                            <span class="input-group-text">min</span>
+                        </div>
+                    </div>
+
+                    <div class="form-check mb-3">
+                        <input class="form-check-input" type="checkbox" id="interdiction" name="interdiction" />
+                        <label class="form-check-label" for="interdiction">
+                            Interdit aux moins de 16 ans
+                        </label>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="resume" class="form-label fw-medium">Résumé du film</label>
+                        <textarea class="form-control" id="resume" name="resume" rows="4" placeholder="Saisissez le résumé du film..." required></textarea>
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="affiche" class="form-label fw-medium">Affiche du film</label>
+                        <input type="file" class="form-control" id="affiche" name="affiche" accept="image/*" required />
+                    </div>
+
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-primary btn-lg fw-semibold">
+                            Ajouter
+                        </button>
+                    </div>
+                </form>
+
+            </div>
+            </div>
+        </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,9 +1,14 @@
-from flask import Flask, jsonify, render_template, redirect, url_for
-import pymysql
+from flask import Flask, jsonify, render_template, redirect, url_for, request
+import pymysql, os
 import pymysql.cursors
 from config import Config # Importe la configuration
 import json
+
 app = Flask(__name__)
+
+UPLOAD_FOLDER = 'static/Ressources/Images'
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
 def get_db_connection():
     """Crée la connexion à MariaDB avec les identifiants de config.py."""
     return pymysql.connect(
@@ -155,8 +160,9 @@ def film(id_film):
     requete_film = "SELECT * FROM film;"
     cursor.execute(requete_film)
     films = cursor.fetchall()
-
-    requete_seances = "SELECT * FROM seances JOIN salle ON seances.id_salle=salle.id JOIN film ON seances.id_film=film.id WHERE seances.id_film = %s;"
+    SET lc_time_names = 'fr_FR';
+    requete_seances = """
+    SELECT salle.num, seances.version_langue, DATE_FORMAT(seances.heure_date, \'\%W \%e \%M \%Y à %H:%i\') as heure_date FROM seances JOIN salle ON seances.id_salle=salle.id JOIN film ON seances.id_film=film.id WHERE seances.id_film = %s;"""
     cursor.execute(requete_seances, id_film)
 
     seances = cursor.fetchall()
@@ -168,6 +174,38 @@ def film(id_film):
         return render_template('film.html', film_info=film_info, films=films, seances=seances)
     else:
         return redirect(url_for('films'))
+
+@app.route('/form-film')
+def formulaire():
+    return render_template('formulaire_film.html')
+
+@app.route('/ajouter_film', methods=['POST'])
+def ajouter_film():
+    titre = request.form.get('titre')
+    langue = request.form.get('langue')
+    duree = request.form.get('duree')
+    interdiction = bool(request.form.get('interdiction'))
+    resume = request.form.get('resume')
+    
+    image = request.files.get('affiche')
+    nom_image = None
+
+    if image and image.filename != '':
+        nom_image = image.filename
+
+        os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
+
+        image.save(os.path.join(app.config['UPLOAD_FOLDER'], nom_image))
+
+    co = get_db_connection()
+    cursor = co.cursor()
+
+    sql = "INSERT INTO film (titre, resume, duree, interdit_moins_16_ans, langue, affiche) VALUES (%s, %s, %s, %s, %s, %s);"
+
+    cursor.execute(sql, (titre, resume, duree, interdiction, langue, nom_image))
+    co.commit()
+    
+    return render_template('succes_ajout_film.html', film=titre)
 
 from update_date import mettre_a_jour_seances
 
